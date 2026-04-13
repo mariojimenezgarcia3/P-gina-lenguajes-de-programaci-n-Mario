@@ -1,0 +1,28 @@
+{
+  "name": "guia-lenguajes-programacion-mario",
+  "version": "1.0.0",
+  "description": "Una página web moderna e interactiva para aprender Python, JavaScript, Java y C++.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariojimenezgarcia3/P-gina-lenguajes-de-programaci-n-Mario.git"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "javascript",
+    "tutorial",
+    "programacion",
+    "cpp"
+  ],
+  "author": "Mario",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mariojimenezgarcia3/P-gina-lenguajes-de-programaci-n-Mario/issues"
+  },
+  "homepage": "https://mariojimenezgarcia3.github.io/P-gina-lenguajes-de-programaci-n-Mario/"
+}
