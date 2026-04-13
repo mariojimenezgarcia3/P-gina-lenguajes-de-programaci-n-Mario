@@ -1,0 +1,17 @@
+{
+  "name": "Guía de Programación Mario",
+  "short_name": "ProgMario",
+  "description": "Aprende Python, JS, Java y C++",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0f0f13",
+  "theme_color": "#4b9fff",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2744/2744656.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
