@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lenguajes de Programación</title>
+  <title>Lenguajes de Programación - Mario</title>
   
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4b9fff">
@@ -64,13 +64,8 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    header p {
-      margin-top: 10px;
-      font-size: 15px;
-      color: var(--muted);
-    }
 
-    /* ── TABS ── */
+    /* ── NAVEGACIÓN PRINCIPAL ── */
     .tabs-wrapper {
       max-width: 1200px;
       margin: 36px auto 0;
@@ -82,7 +77,7 @@
       border-bottom: 1px solid var(--border);
     }
     .tab-btn {
-      padding: 10px 20px;
+      padding: 12px 20px;
       font-family: 'Sora', sans-serif;
       font-size: 14px;
       font-weight: 500;
@@ -100,14 +95,41 @@
       border-bottom-color: #4b9fff;
     }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    /* ── SUB-NAVEGACIÓN (NIVELES) ── */
+    .sub-nav {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+      padding: 4px;
+      background: var(--surface2);
+      border-radius: 10px;
+      width: fit-content;
+    }
+    .sub-btn {
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sub-btn.active {
+      background: var(--surface);
+      color: var(--py-accent);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
 
-    /* ── GRID ── */
+    .tab-content, .sub-content { display: none; }
+    .tab-content.active, .sub-content.active { display: block; }
+
+    /* ── GRID Y TARJETAS ── */
     .lang-section {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 36px 48px 64px;
+      padding: 10px 48px 64px;
     }
     .lang-grid {
       display: grid;
@@ -115,7 +137,6 @@
       gap: 20px;
     }
 
-    /* ── CARD ── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -153,23 +174,7 @@
 
     .card-body { padding: 18px 20px 20px; }
 
-    /* Steps */
-    .steps { margin-bottom: 16px; display: flex; flex-direction: column; gap: 9px; }
-    .step { display: flex; gap: 10px; align-items: flex-start; }
-    .step-dot {
-      width: 20px; height: 20px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 10px; font-weight: 600; flex-shrink: 0; margin-top: 1px;
-    }
-    .step-dot.py { background: var(--py-bg); color: var(--py-accent); }
-    .step-dot.js { background: var(--js-bg); color: var(--js-accent); }
-    .step-dot.java { background: var(--java-bg); color: var(--java-accent); }
-    .step-dot.cpp { background: var(--cpp-bg); color: var(--cpp-accent); }
-
-    .step-text { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
-    .step-text code { font-family: 'JetBrains Mono'; background: var(--surface2); padding: 1px 5px; border-radius: 4px; color: var(--text); }
-
-    /* Code Block */
+    /* Código */
     .code-wrap { position: relative; }
     .code-block {
       background: var(--surface2);
@@ -182,33 +187,20 @@
       overflow-x: auto;
     }
     .line { display: block; white-space: pre; }
-    .kw { color: #c792ea; } /* Keywords */
-    .fn { color: #82aaff; } /* Functions */
-    .str { color: #c3e88d; } /* Strings */
-    .cm { color: #546e7a; font-style: italic; } /* Comments */
-    .inc { color: #89ddff; } /* Includes */
+    .kw { color: #c792ea; } .fn { color: #82aaff; } .str { color: #c3e88d; } .cm { color: #546e7a; font-style: italic; } .inc { color: #89ddff; }
 
     .copy-btn {
       position: absolute; top: 8px; right: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-family: 'Sora'; font-size: 11px;
-      color: var(--muted); cursor: pointer;
-      transition: color 0.15s;
+      background: var(--surface); border: 1px solid var(--border2);
+      border-radius: 6px; padding: 4px 10px; font-family: 'Sora'; font-size: 11px;
+      color: var(--muted); cursor: pointer; transition: color 0.15s;
     }
     .copy-btn:hover { color: var(--text); }
 
-    .output-label { font-size: 11px; color: var(--muted); margin: 10px 0 5px; }
     .output-box {
-      background: #0a0a0f;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-family: 'JetBrains Mono';
-      font-size: 12.5px;
-      color: var(--green);
+      background: #0a0a0f; border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 14px; font-family: 'JetBrains Mono';
+      font-size: 12.5px; color: var(--green); margin-top: 10px;
     }
     .output-box::before { content: '$ '; color: var(--muted); }
 
@@ -220,9 +212,8 @@
 <body>
 
   <header>
-    <p class="site-title">Guía de introducción</p>
+    <p class="site-title">Mario Jiménez García</p>
     <h1>Aprende a <span>programar</span></h1>
-    <p>Tutoriales básicos para dar tus primeros pasos en el mundo del código.</p>
   </header>
 
   <div class="tabs-wrapper">
@@ -230,128 +221,192 @@
       <button class="tab-btn active" onclick="showTab('lenguajes', this)">Lenguajes de programación</button>
       <button class="tab-btn" onclick="showTab('desarrollo', this)">Desarrollo de programas</button>
     </nav>
-  </div>
 
-  <div id="lenguajes" class="tab-content active">
-    <div class="lang-section">
-      <div class="lang-grid">
+    <div id="lenguajes" class="tab-content active">
+      
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="showSubTab('iniciacion', this)">Iniciación</button>
+        <button class="sub-btn" onclick="showSubTab('intermedio', this)">Intermedio</button>
+        <button class="sub-btn" onclick="showSubTab('avanzado', this)">Avanzado</button>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="lang-badge py">Py</div>
-            <div class="lang-info">
-              <div class="lang-name">Python</div>
-              <div class="lang-tag">Simple e ideal para empezar</div>
+      <div id="iniciacion" class="sub-content active">
+        <div class="lang-grid">
+          <div class="card">
+            <div class="card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="lang-info"><div class="lang-name">Python</div><div class="lang-tag">Hola Mundo</div></div>
+            </div>
+            <div class="card-body">
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block"><span class="line"><span class="fn">print</span>(<span class="str">"¡Hola, mundo!"</span>)</span></div>
+              </div>
+              <div class="output-box">¡Hola, mundo!</div>
             </div>
           </div>
-          <div class="card-body">
-            <div class="steps">
-              <div class="step"><div class="step-dot py">1</div><div class="step-text">Instala en <code>python.org</code></div></div>
-              <div class="step"><div class="step-dot py">2</div><div class="step-text">Ejecuta con <code>python hola.py</code></div></div>
+          <div class="card">
+            <div class="card-header">
+              <div class="lang-badge cpp">C++</div>
+              <div class="lang-info"><div class="lang-name">C++</div><div class="lang-tag">Estructura básica</div></div>
             </div>
-            <div class="code-wrap">
-              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-              <div class="code-block">
-                <span class="line cm"># Mi primer programa</span>
-                <span class="line"><span class="fn">print</span>(<span class="str">"¡Hola, mundo!"</span>)</span>
+            <div class="card-body">
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+                  <span class="line inc">#include &lt;iostream&gt;</span>
+                  <span class="line"><span class="kw">int</span> <span class="fn">main</span>() {</span>
+                  <span class="line">  std::cout &lt;&lt; <span class="str">"¡Hola!"</span>;</span>
+                  <span class="line">  <span class="kw">return</span> 0;</span>
+                  <span class="line">}</span>
+                </div>
               </div>
+              <div class="output-box">¡Hola!</div>
             </div>
-            <p class="output-label">Salida</p>
-            <div class="output-box">¡Hola, mundo!</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="lang-badge js">JS</div>
+              <div class="lang-info"><div class="lang-name">JavaScript</div><div class="lang-tag">Consola</div></div>
+            </div>
+            <div class="card-body">
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block"><span class="line"><span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"¡Hola!"</span>);</span></div>
+              </div>
+              <div class="output-box">¡Hola!</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="lang-badge java">Jv</div>
+              <div class="lang-info"><div class="lang-name">Java</div><div class="lang-tag">Clase principal</div></div>
+            </div>
+            <div class="card-body">
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+                  <span class="line"><span class="kw">public class</span> Main {</span>
+                  <span class="line">  <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {</span>
+                  <span class="line">    System.out.println(<span class="str">"¡Hola!"</span>);</span>
+                  <span class="line">  }</span>
+                  <span class="line">}</span>
+                </div>
+              </div>
+              <div class="output-box">¡Hola!</div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="lang-badge js">JS</div>
-            <div class="lang-info">
-              <div class="lang-name">JavaScript</div>
-              <div class="lang-tag">El lenguaje de la web</div>
+      <div id="intermedio" class="sub-content">
+        <div class="lang-grid">
+          <div class="card">
+            <div class="card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="lang-info"><div class="lang-name">Python</div><div class="lang-tag">Listas y Bucles</div></div>
+            </div>
+            <div class="card-body">
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+                  <span class="line">frutas = [<span class="str">"manzana"</span>, <span class="str">"pera"</span>]</span>
+                  <span class="line"><span class="kw">for</span> f <span class="kw">in</span> frutas:</span>
+                  <span class="line">    <span class="fn">print</span>(f.upper())</span>
+                </div>
+              </div>
+              <div class="output-box">MANZANA<br>PERA</div>
             </div>
           </div>
-          <div class="card-body">
-            <div class="steps">
-              <div class="step"><div class="step-dot js">1</div><div class="step-text">Abre la consola con <code>F12</code></div></div>
+          <div class="card">
+            <div class="card-header">
+              <div class="lang-badge cpp">C++</div>
+              <div class="lang-info"><div class="lang-name">C++</div><div class="lang-tag">Funciones</div></div>
             </div>
-            <div class="code-wrap">
-              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-              <div class="code-block">
-                <span class="line cm">// Mi primer programa</span>
-                <span class="line"><span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"¡Hola, mundo!"</span>);</span>
+            <div class="card-body">
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+                  <span class="line"><span class="kw">int</span> <span class="fn">suma</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) {</span>
+                  <span class="line">  <span class="kw">return</span> a + b;</span>
+                  <span class="line">}</span>
+                </div>
               </div>
+              <div class="output-box">(Lógica definida)</div>
             </div>
-            <p class="output-label">Salida</p>
-            <div class="output-box">¡Hola, mundo!</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="lang-badge js">JS</div>
+              <div class="lang-info"><div class="lang-name">JavaScript</div><div class="lang-tag">Arrow Functions</div></div>
+            </div>
+            <div class="card-body">
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+                  <span class="line"><span class="kw">const</span> <span class="fn">saludar</span> = name => {</span>
+                  <span class="line">  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Hola <span class="kw">${</span>name<span class="kw">}</span>`</span>);</span>
+                  <span class="line">};</span>
+                </div>
+              </div>
+              <div class="output-box">Hola Mario</div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="lang-badge cpp">C++</div>
-            <div class="lang-info">
-              <div class="lang-name">C++</div>
-              <div class="lang-tag">Potencia y alto rendimiento</div>
+      <div id="avanzado" class="sub-content">
+        <div class="lang-grid">
+          <div class="card">
+            <div class="card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="lang-info"><div class="lang-name">Python</div><div class="lang-tag">Decoradores</div></div>
             </div>
-          </div>
-          <div class="card-body">
-            <div class="steps">
-              <div class="step"><div class="step-dot cpp">1</div><div class="step-text">Compila con <code>g++ hola.cpp</code></div></div>
-            </div>
-            <div class="code-wrap">
-              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-              <div class="code-block">
-                <span class="line inc">#include &lt;iostream&gt;</span>
-                <span class="line"><span class="kw">int</span> <span class="fn">main</span>() {</span>
-                <span class="line">  std::cout &lt;&lt; <span class="str">"¡Hola!"</span>;</span>
-                <span class="line">  <span class="kw">return</span> <span class="str">0</span>;</span>
-                <span class="line">}</span>
+            <div class="card-body">
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+                  <span class="line"><span class="kw">def</span> <span class="fn">log</span>(func):</span>
+                  <span class="line">    <span class="kw">def</span> <span class="fn">wrapper</span>():</span>
+                  <span class="line">        <span class="fn">print</span>(<span class="str">"Inicio"</span>)</span>
+                  <span class="line">        func()</span>
+                  <span class="line">    <span class="kw">return</span> wrapper</span>
+                </div>
               </div>
             </div>
-            <p class="output-label">Salida</p>
-            <div class="output-box">¡Hola!</div>
           </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <div class="lang-badge java">Jv</div>
-            <div class="lang-info">
-              <div class="lang-name">Java</div>
-              <div class="lang-tag">Robusto y empresarial</div>
+          <div class="card">
+            <div class="card-header">
+              <div class="lang-badge js">JS</div>
+              <div class="lang-info"><div class="lang-name">JavaScript</div><div class="lang-tag">Async / Await</div></div>
             </div>
-          </div>
-          <div class="card-body">
-            <div class="steps">
-              <div class="step"><div class="step-dot java">1</div><div class="step-text">Usa <code>javac</code> para compilar</div></div>
-            </div>
-            <div class="code-wrap">
-              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-              <div class="code-block">
-                <span class="line"><span class="kw">public class</span> Main {</span>
-                <span class="line">  <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {</span>
-                <span class="line">    System.out.println(<span class="str">"¡Hola!"</span>);</span>
-                <span class="line">  }</span>
-                <span class="line">}</span>
+            <div class="card-body">
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+                  <span class="line"><span class="kw">async function</span> <span class="fn">getData</span>() {</span>
+                  <span class="line">  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(url);</span>
+                  <span class="line">  <span class="kw">const</span> data = <span class="kw">await</span> res.json();</span>
+                  <span class="line">}</span>
+                </div>
               </div>
             </div>
-            <p class="output-label">Salida</p>
-            <div class="output-box">¡Hola!</div>
           </div>
         </div>
+      </div>
 
+    </div>
+
+    <div id="desarrollo" class="tab-content">
+      <div style="text-align:center; padding: 100px; color: var(--muted);">
+        <h2>🛠️ Sección en construcción</h2>
       </div>
     </div>
-  </div>
 
-  <div id="desarrollo" class="tab-content">
-    <div style="text-align:center; padding: 120px 20px; color: var(--muted);">
-      <div style="font-size: 40px; margin-bottom: 20px;">🛠️</div>
-      <h2>Sección en construcción</h2>
-      <p>Próximamente guías sobre Git, Docker y más.</p>
-    </div>
   </div>
 
   <script>
+    // Cambio de pestañas principales
     function showTab(id, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -359,6 +414,15 @@
       btn.classList.add('active');
     }
 
+    // Cambio de sub-pestañas (Niveles)
+    function showSubTab(id, btn) {
+      document.querySelectorAll('.sub-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.sub-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // Función de copiar código
     function copyCode(btn) {
       const text = btn.nextElementSibling.innerText;
       navigator.clipboard.writeText(text).then(() => {
@@ -369,3 +433,5 @@
   </script>
 </body>
 </html>
+
+
