@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lenguajes de Programación - Mario</title>
-  
+
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4b9fff">
 
@@ -29,6 +29,8 @@
       --cpp-accent: #0080d1;
       --cpp-bg: rgba(0, 128, 209, 0.1);
       --green: #4caf6e;
+      --indigo: #6366f1;
+      --indigo-bg: rgba(99,102,241,0.12);
     }
 
     body {
@@ -163,14 +165,15 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px; font-weight: 500;
     }
-    .lang-badge.py { background: var(--py-bg); color: var(--py-accent); border: 1px solid rgba(75,159,255,0.2); }
-    .lang-badge.js { background: var(--js-bg); color: var(--js-accent); border: 1px solid rgba(240,192,64,0.2); }
-    .lang-badge.java { background: var(--java-bg); color: var(--java-accent); border: 1px solid rgba(255,107,107,0.2); }
-    .lang-badge.cpp { background: var(--cpp-bg); color: var(--cpp-accent); border: 1px solid rgba(0,128,209,0.2); }
+    .lang-badge.py  { background: var(--py-bg);   color: var(--py-accent);   border: 1px solid rgba(75,159,255,0.2); }
+    .lang-badge.js  { background: var(--js-bg);   color: var(--js-accent);   border: 1px solid rgba(240,192,64,0.2); }
+    .lang-badge.java{ background: var(--java-bg); color: var(--java-accent); border: 1px solid rgba(255,107,107,0.2); }
+    .lang-badge.cpp { background: var(--cpp-bg);  color: var(--cpp-accent);  border: 1px solid rgba(0,128,209,0.2); }
+    .lang-badge.indigo { background: var(--indigo-bg); color: var(--indigo); border: 1px solid rgba(99,102,241,0.3); }
 
     .lang-info { flex: 1; }
     .lang-name { font-size: 16px; font-weight: 600; color: var(--text); }
-    .lang-tag { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .lang-tag  { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
     .card-body { padding: 18px 20px 20px; }
 
@@ -185,9 +188,16 @@
       font-size: 12.5px;
       line-height: 1.7;
       overflow-x: auto;
+      max-height: 340px;
+      overflow-y: auto;
     }
     .line { display: block; white-space: pre; }
-    .kw { color: #c792ea; } .fn { color: #82aaff; } .str { color: #c3e88d; } .cm { color: #546e7a; font-style: italic; } .inc { color: #89ddff; }
+    .kw  { color: #c792ea; }
+    .fn  { color: #82aaff; }
+    .str { color: #c3e88d; }
+    .cm  { color: #546e7a; font-style: italic; }
+    .inc { color: #89ddff; }
+    .num { color: #f78c6c; }
 
     .copy-btn {
       position: absolute; top: 8px; right: 8px;
@@ -204,8 +214,159 @@
     }
     .output-box::before { content: '$ '; color: var(--muted); }
 
+    /* ── SECCIÓN INICIATIVA EMPRESARIAL ── */
+    .empresa-section {
+      margin-top: 10px;
+      padding-bottom: 64px;
+    }
+
+    .empresa-header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .empresa-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .empresa-header h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .empresa-header p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .empresa-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--indigo);
+      margin-bottom: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── MAPA INTERACTIVO ── */
+    .map-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .map-toolbar {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .map-toolbar-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .map-legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 3px;
+    }
+
+    #park-map {
+      width: 100%;
+      height: 420px;
+      display: block;
+      cursor: crosshair;
+      position: relative;
+    }
+
+    .map-info-panel {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .info-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .info-text h4 { font-size: 13px; font-weight: 600; color: var(--text); }
+    .info-text p  { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+    .stat-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+    .stat-value { font-size: 22px; font-weight: 600; color: var(--text); }
+    .stat-sub   { font-size: 11px; color: var(--green); margin-top: 2px; }
+
+    /* Código empresa */
+    .empresa-code-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .empresa-code-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .empresa-code-header .lang-badge { width: 32px; height: 32px; font-size: 11px; }
+    .empresa-code-body { padding: 20px; }
+    .empresa-code-body .code-block { max-height: 460px; }
+
     @media (max-width: 640px) {
-      header, .tabs-wrapper, .lang-section { padding-left: 20px; padding-right: 20px; }
+      header, .tabs-wrapper { padding-left: 20px; padding-right: 20px; }
+      #park-map { height: 300px; }
     }
   </style>
 </head>
@@ -222,16 +383,21 @@
       <button class="tab-btn" onclick="showTab('desarrollo', this)">Desarrollo de programas</button>
     </nav>
 
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!--   TAB 1 · LENGUAJES DE PROGRAMACIÓN                -->
+    <!-- ═══════════════════════════════════════════════════ -->
     <div id="lenguajes" class="tab-content active">
-      
+
       <div class="sub-nav">
         <button class="sub-btn active" onclick="showSubTab('iniciacion', this)">Iniciación</button>
         <button class="sub-btn" onclick="showSubTab('intermedio', this)">Intermedio</button>
         <button class="sub-btn" onclick="showSubTab('avanzado', this)">Avanzado</button>
       </div>
 
+      <!-- INICIACIÓN -->
       <div id="iniciacion" class="sub-content active">
         <div class="lang-grid">
+
           <div class="card">
             <div class="card-header">
               <div class="lang-badge py">Py</div>
@@ -245,6 +411,7 @@
               <div class="output-box">¡Hola, mundo!</div>
             </div>
           </div>
+
           <div class="card">
             <div class="card-header">
               <div class="lang-badge cpp">C++</div>
@@ -264,6 +431,7 @@
               <div class="output-box">¡Hola!</div>
             </div>
           </div>
+
           <div class="card">
             <div class="card-header">
               <div class="lang-badge js">JS</div>
@@ -277,6 +445,7 @@
               <div class="output-box">¡Hola!</div>
             </div>
           </div>
+
           <div class="card">
             <div class="card-header">
               <div class="lang-badge java">Jv</div>
@@ -296,11 +465,14 @@
               <div class="output-box">¡Hola!</div>
             </div>
           </div>
+
         </div>
       </div>
 
+      <!-- INTERMEDIO -->
       <div id="intermedio" class="sub-content">
         <div class="lang-grid">
+
           <div class="card">
             <div class="card-header">
               <div class="lang-badge py">Py</div>
@@ -318,6 +490,7 @@
               <div class="output-box">MANZANA<br>PERA</div>
             </div>
           </div>
+
           <div class="card">
             <div class="card-header">
               <div class="lang-badge cpp">C++</div>
@@ -335,6 +508,7 @@
               <div class="output-box">(Lógica definida)</div>
             </div>
           </div>
+
           <div class="card">
             <div class="card-header">
               <div class="lang-badge js">JS</div>
@@ -352,11 +526,14 @@
               <div class="output-box">Hola Mario</div>
             </div>
           </div>
+
         </div>
       </div>
 
+      <!-- AVANZADO -->
       <div id="avanzado" class="sub-content">
         <div class="lang-grid">
+
           <div class="card">
             <div class="card-header">
               <div class="lang-badge py">Py</div>
@@ -375,6 +552,7 @@
               </div>
             </div>
           </div>
+
           <div class="card">
             <div class="card-header">
               <div class="lang-badge js">JS</div>
@@ -392,21 +570,210 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
-    </div>
+    </div><!-- /lenguajes -->
 
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!--   TAB 2 · DESARROLLO DE PROGRAMAS                  -->
+    <!-- ═══════════════════════════════════════════════════ -->
     <div id="desarrollo" class="tab-content">
-      <div style="text-align:center; padding: 100px; color: var(--muted);">
-        <h2>🛠️ Sección en construcción</h2>
-      </div>
-    </div>
+      <div class="empresa-section">
 
-  </div>
+        <!-- Cabecera de iniciativa empresarial -->
+        <div class="empresa-header">
+          <div class="empresa-badge">🏢 Iniciativa Empresarial · TIC I</div>
+          <h2>Parque Tecnológico del Instituto</h2>
+          <p>Proyecto de desarrollo: sistema de gestión y visualización interactiva de las instalaciones del parque tecnológico del centro. Programado en Python con representación gráfica mediante canvas HTML5.</p>
+        </div>
+
+        <!-- Stats row -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Zonas registradas</div>
+            <div class="stat-value">5</div>
+            <div class="stat-sub">↑ Activas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Temp. actual (Estación)</div>
+            <div class="stat-value" id="stat-temp">—</div>
+            <div class="stat-sub" id="stat-temp-sub">Sin datos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Humedad (Estación)</div>
+            <div class="stat-value" id="stat-hum">—</div>
+            <div class="stat-sub" id="stat-hum-sub">Sin datos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Zona seleccionada</div>
+            <div class="stat-value" id="stat-zona" style="font-size:15px;">Ninguna</div>
+            <div class="stat-sub">Haz clic en el mapa</div>
+          </div>
+        </div>
+
+        <!-- Mapa interactivo -->
+        <div class="map-container">
+          <div class="map-toolbar">
+            <span class="map-toolbar-title">🗺️ Mapa Interactivo — Parque Tecnológico</span>
+            <div class="map-legend">
+              <span class="legend-item"><span class="legend-dot" style="background:#4caf6e"></span>Huertos</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#4b9fff"></span>Estación meteo.</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#f0c040"></span>Electricidad</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#a78bfa"></span>Fontanería</span>
+            </div>
+          </div>
+          <canvas id="park-map" width="1200" height="420"></canvas>
+          <div class="map-info-panel" id="map-info">
+            <div class="info-icon" style="background: var(--surface2);">🏫</div>
+            <div class="info-text">
+              <h4>Parque Tecnológico — IES Tech</h4>
+              <p>Haz clic sobre cualquier zona del mapa para ver su información detallada.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Código Python -->
+        <div class="empresa-code-card">
+          <div class="empresa-code-header">
+            <div class="lang-badge py indigo" style="font-size:11px;">Py</div>
+            <div class="lang-info">
+              <div class="lang-name">Python · Gestión del Parque Tecnológico</div>
+              <div class="lang-tag">Programación orientada a objetos · Diccionarios · Listas · Funciones</div>
+            </div>
+            <button class="copy-btn" style="position:static; margin-left:auto;" onclick="copyPythonCode()">Copiar</button>
+          </div>
+          <div class="empresa-code-body">
+            <div class="code-wrap">
+              <div class="code-block" id="python-code-block">
+<span class="line cm"># ═══════════════════════════════════════════════════</span>
+<span class="line cm">#   Parque Tecnológico del Instituto  ·  TIC I</span>
+<span class="line cm">#   Autor: Mario Jiménez García</span>
+<span class="line cm"># ═══════════════════════════════════════════════════</span>
+<span class="line"></span>
+<span class="line cm"># Datos de las zonas del parque (estructuras de datos)</span>
+<span class="line">zonas_parque = [</span>
+<span class="line">    {</span>
+<span class="line">        <span class="str">"id"</span>: <span class="num">1</span>,</span>
+<span class="line">        <span class="str">"nombre"</span>: <span class="str">"Huerto A"</span>,</span>
+<span class="line">        <span class="str">"tipo"</span>: <span class="str">"huerto"</span>,</span>
+<span class="line">        <span class="str">"cultivos"</span>: [<span class="str">"tomates"</span>, <span class="str">"lechugas"</span>, <span class="str">"pimientos"</span>],</span>
+<span class="line">        <span class="str">"superficie_m2"</span>: <span class="num">45</span>,</span>
+<span class="line">        <span class="str">"responsable"</span>: <span class="str">"Grupo 1º Bach A"</span></span>
+<span class="line">    },</span>
+<span class="line">    {</span>
+<span class="line">        <span class="str">"id"</span>: <span class="num">2</span>,</span>
+<span class="line">        <span class="str">"nombre"</span>: <span class="str">"Huerto B"</span>,</span>
+<span class="line">        <span class="str">"tipo"</span>: <span class="str">"huerto"</span>,</span>
+<span class="line">        <span class="str">"cultivos"</span>: [<span class="str">"zanahorias"</span>, <span class="str">"espinacas"</span>],</span>
+<span class="line">        <span class="str">"superficie_m2"</span>: <span class="num">38</span>,</span>
+<span class="line">        <span class="str">"responsable"</span>: <span class="str">"Grupo 1º Bach B"</span></span>
+<span class="line">    },</span>
+<span class="line">    {</span>
+<span class="line">        <span class="str">"id"</span>: <span class="num">3</span>,</span>
+<span class="line">        <span class="str">"nombre"</span>: <span class="str">"Estación Meteorológica"</span>,</span>
+<span class="line">        <span class="str">"tipo"</span>: <span class="str">"meteo"</span>,</span>
+<span class="line">        <span class="str">"sensores"</span>: [<span class="str">"temperatura"</span>, <span class="str">"humedad"</span>, <span class="str">"presión"</span>, <span class="str">"viento"</span>],</span>
+<span class="line">        <span class="str">"datos_actuales"</span>: {</span>
+<span class="line">            <span class="str">"temp_C"</span>: <span class="num">21.4</span>,</span>
+<span class="line">            <span class="str">"humedad_%"</span>: <span class="num">62</span>,</span>
+<span class="line">            <span class="str">"presion_hPa"</span>: <span class="num">1013</span>,</span>
+<span class="line">            <span class="str">"viento_km_h"</span>: <span class="num">14</span></span>
+<span class="line">        }</span>
+<span class="line">    },</span>
+<span class="line">    {</span>
+<span class="line">        <span class="str">"id"</span>: <span class="num">4</span>,</span>
+<span class="line">        <span class="str">"nombre"</span>: <span class="str">"Zona de Electricidad"</span>,</span>
+<span class="line">        <span class="str">"tipo"</span>: <span class="str">"electricidad"</span>,</span>
+<span class="line">        <span class="str">"practicas"</span>: [<span class="str">"circuitos básicos"</span>, <span class="str">"instalación doméstica"</span>, <span class="str">"energía solar"</span>],</span>
+<span class="line">        <span class="str">"capacidad_alumnos"</span>: <span class="num">16</span></span>
+<span class="line">    },</span>
+<span class="line">    {</span>
+<span class="line">        <span class="str">"id"</span>: <span class="num">5</span>,</span>
+<span class="line">        <span class="str">"nombre"</span>: <span class="str">"Zona de Fontanería"</span>,</span>
+<span class="line">        <span class="str">"tipo"</span>: <span class="str">"fontaneria"</span>,</span>
+<span class="line">        <span class="str">"practicas"</span>: [<span class="str">"tuberías PVC"</span>, <span class="str">"soldadura"</span>, <span class="str">"grifería"</span>],</span>
+<span class="line">        <span class="str">"capacidad_alumnos"</span>: <span class="num">12</span></span>
+<span class="line">    }</span>
+<span class="line">]</span>
+<span class="line"></span>
+<span class="line cm"># ── Función que muestra el informe de una zona ──</span>
+<span class="line"><span class="kw">def</span> <span class="fn">mostrar_zona</span>(zona):</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">f"\n{'═'*40}"</span>)</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">f"  {zona['nombre'].upper()}"</span>)</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">f"{'═'*40}"</span>)</span>
+<span class="line">    <span class="kw">if</span> zona[<span class="str">"tipo"</span>] == <span class="str">"huerto"</span>:</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  🌱 Cultivos: {', '.join(zona['cultivos'])}"</span>)</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  📐 Superficie: {zona['superficie_m2']} m²"</span>)</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  👥 Responsable: {zona['responsable']}"</span>)</span>
+<span class="line">    <span class="kw">elif</span> zona[<span class="str">"tipo"</span>] == <span class="str">"meteo"</span>:</span>
+<span class="line">        d = zona[<span class="str">"datos_actuales"</span>]</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  🌡️  Temperatura : {d['temp_C']} °C"</span>)</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  💧 Humedad     : {d['humedad_%']} %"</span>)</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  🌬️  Viento      : {d['viento_km_h']} km/h"</span>)</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  📡 Sensores    : {', '.join(zona['sensores'])}"</span>)</span>
+<span class="line">    <span class="kw">else</span>:</span>
+<span class="line">        practicas = zona.get(<span class="str">"practicas"</span>, [])</span>
+<span class="line">        capacidad = zona.get(<span class="str">"capacidad_alumnos"</span>, <span class="str">"—"</span>)</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  🔧 Prácticas  : {', '.join(practicas)}"</span>)</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  🪑 Capacidad  : {capacidad} alumnos"</span>)</span>
+<span class="line"></span>
+<span class="line cm"># ── Función principal ──</span>
+<span class="line"><span class="kw">def</span> <span class="fn">menu_parque</span>():</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"╔══════════════════════════════════════╗"</span>)</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"║   PARQUE TECNOLÓGICO — IES TECH      ║"</span>)</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"╚══════════════════════════════════════╝"</span>)</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"\nZonas disponibles:"</span>)</span>
+<span class="line">    <span class="kw">for</span> z <span class="kw">in</span> zonas_parque:</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"  [{z['id']}] {z['nombre']}"</span>)</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"  [0] Salir"</span>)</span>
+<span class="line">    <span class="kw">while</span> <span class="kw">True</span>:</span>
+<span class="line">        opcion = <span class="fn">input</span>(<span class="str">"\nSelecciona una zona: "</span>)</span>
+<span class="line">        <span class="kw">if</span> opcion == <span class="str">"0"</span>:</span>
+<span class="line">            <span class="fn">print</span>(<span class="str">"Saliendo del sistema. ¡Hasta pronto!"</span>)</span>
+<span class="line">            <span class="kw">break</span></span>
+<span class="line">        zona = <span class="fn">next</span>((z <span class="kw">for</span> z <span class="kw">in</span> zonas_parque <span class="kw">if</span> <span class="fn">str</span>(z[<span class="str">"id"</span>]) == opcion), <span class="kw">None</span>)</span>
+<span class="line">        <span class="kw">if</span> zona:</span>
+<span class="line">            <span class="fn">mostrar_zona</span>(zona)</span>
+<span class="line">        <span class="kw">else</span>:</span>
+<span class="line">            <span class="fn">print</span>(<span class="str">"Opción no válida."</span>)</span>
+<span class="line"></span>
+<span class="line"><span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:</span>
+<span class="line">    <span class="fn">menu_parque</span>()</span>
+              </div>
+            </div>
+            <div class="output-box" style="margin-top:14px; white-space:pre; line-height:1.7;">╔══════════════════════════════════════╗
+║   PARQUE TECNOLÓGICO — IES TECH      ║
+╚══════════════════════════════════════╝
+
+Zonas disponibles:
+  [1] Huerto A
+  [2] Huerto B
+  [3] Estación Meteorológica
+  [4] Zona de Electricidad
+  [5] Zona de Fontanería
+  [0] Salir
+
+Selecciona una zona: <span style="color:#f0c040">3</span>
+
+════════════════════════════════════════
+  ESTACIÓN METEOROLÓGICA
+════════════════════════════════════════
+  🌡️  Temperatura : 21.4 °C
+  💧 Humedad     : 62 %
+  🌬️  Viento      : 14 km/h
+  📡 Sensores    : temperatura, humedad, presión, viento</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /desarrollo -->
+
+  </div><!-- /tabs-wrapper -->
 
   <script>
-    // Cambio de pestañas principales
+    /* ═══════════════ TAB NAVIGATION ═══════════════ */
     function showTab(id, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -414,7 +781,6 @@
       btn.classList.add('active');
     }
 
-    // Cambio de sub-pestañas (Niveles)
     function showSubTab(id, btn) {
       document.querySelectorAll('.sub-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.sub-btn').forEach(el => el.classList.remove('active'));
@@ -422,7 +788,6 @@
       btn.classList.add('active');
     }
 
-    // Función de copiar código
     function copyCode(btn) {
       const text = btn.nextElementSibling.innerText;
       navigator.clipboard.writeText(text).then(() => {
@@ -430,9 +795,226 @@
         setTimeout(() => btn.textContent = 'Copiar', 1500);
       });
     }
+
+    function copyPythonCode() {
+      const text = document.getElementById('python-code-block').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        event.target.textContent = '¡Copiado!';
+        setTimeout(() => event.target.textContent = 'Copiar', 1500);
+      });
+    }
+
+    /* ═══════════════ PARK MAP ═══════════════ */
+    const canvas = document.getElementById('park-map');
+    const ctx    = canvas.getContext('2d');
+
+    // Zonas del parque con su posición en el canvas
+    const zonas = [
+      {
+        id: 1, nombre: 'Huerto A', tipo: 'huerto',
+        emoji: '🌱', color: '#4caf6e', colorDark: '#2e7d4f',
+        x: 60, y: 60, w: 200, h: 140,
+        info: 'Cultivos: tomates, lechugas, pimientos · 45 m² · Grupo 1º Bach A'
+      },
+      {
+        id: 2, nombre: 'Huerto B', tipo: 'huerto',
+        emoji: '🌿', color: '#66bb6a', colorDark: '#388e3c',
+        x: 60, y: 240, w: 200, h: 120,
+        info: 'Cultivos: zanahorias, espinacas · 38 m² · Grupo 1º Bach B'
+      },
+      {
+        id: 3, nombre: 'Estación Meteorológica', tipo: 'meteo',
+        emoji: '🌤️', color: '#4b9fff', colorDark: '#1565c0',
+        x: 360, y: 80, w: 220, h: 160,
+        info: 'Temp: 21.4 °C · Humedad: 62% · Viento: 14 km/h · Presión: 1013 hPa'
+      },
+      {
+        id: 4, nombre: 'Zona Electricidad', tipo: 'electricidad',
+        emoji: '⚡', color: '#f0c040', colorDark: '#b7950b',
+        x: 680, y: 60, w: 210, h: 140,
+        info: 'Prácticas: circuitos, inst. doméstica, solar · Capacidad: 16 alumnos'
+      },
+      {
+        id: 5, nombre: 'Zona Fontanería', tipo: 'fontaneria',
+        emoji: '🔧', color: '#a78bfa', colorDark: '#6d28d9',
+        x: 680, y: 240, w: 210, h: 130,
+        info: 'Prácticas: tuberías PVC, soldadura, grifería · Capacidad: 12 alumnos'
+      }
+    ];
+
+    let selected = null;
+    let hovered  = null;
+    let animFrame = 0;
+
+    function hexToRgb(hex) {
+      const r = parseInt(hex.slice(1,3),16);
+      const g = parseInt(hex.slice(3,5),16);
+      const b = parseInt(hex.slice(5,7),16);
+      return {r,g,b};
+    }
+
+    function drawMap(timestamp) {
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // Background grid
+      ctx.fillStyle = '#12121a';
+      ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+      ctx.lineWidth = 1;
+      for(let x = 0; x < W; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+      }
+      for(let y = 0; y < H; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+      }
+
+      // Paths between zones (dashed lines)
+      ctx.setLineDash([6,5]);
+      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.lineWidth = 2;
+      const centers = zonas.map(z => ({x: z.x + z.w/2, y: z.y + z.h/2}));
+      const connections = [[0,2],[1,2],[2,3],[2,4]];
+      connections.forEach(([a,b]) => {
+        ctx.beginPath();
+        ctx.moveTo(centers[a].x, centers[a].y);
+        ctx.lineTo(centers[b].x, centers[b].y);
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
+
+      // Draw each zone
+      zonas.forEach((z, i) => {
+        const isHov  = hovered  === i;
+        const isSel  = selected === i;
+        const rgb    = hexToRgb(z.color);
+        const pulse  = isSel ? Math.sin(timestamp / 500) * 0.12 + 0.88 : 1;
+
+        // Shadow / glow
+        if(isSel || isHov) {
+          ctx.shadowColor  = z.color;
+          ctx.shadowBlur   = isSel ? 24 : 12;
+        }
+
+        // Card fill
+        const grad = ctx.createLinearGradient(z.x, z.y, z.x + z.w, z.y + z.h);
+        grad.addColorStop(0, `rgba(${rgb.r},${rgb.g},${rgb.b},${isHov||isSel ? 0.22 : 0.12})`);
+        grad.addColorStop(1, `rgba(${rgb.r},${rgb.g},${rgb.b},${isHov||isSel ? 0.08 : 0.04})`);
+        ctx.fillStyle = grad;
+        roundRect(ctx, z.x, z.y, z.w, z.h, 12);
+        ctx.fill();
+
+        // Border
+        ctx.strokeStyle = isSel ? z.color : isHov ? `rgba(${rgb.r},${rgb.g},${rgb.b},0.7)` : `rgba(${rgb.r},${rgb.g},${rgb.b},0.3)`;
+        ctx.lineWidth = isSel ? 2.5 : 1.5;
+        roundRect(ctx, z.x, z.y, z.w, z.h, 12);
+        ctx.stroke();
+
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+
+        // Emoji
+        ctx.font = '28px serif';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(z.emoji, z.x + z.w/2, z.y + 46);
+
+        // Name
+        ctx.font = '600 13px Sora, sans-serif';
+        ctx.fillStyle = isSel ? z.color : (isHov ? '#e8e8f0' : '#b0b0c8');
+        ctx.fillText(z.nombre, z.x + z.w/2, z.y + 74);
+
+        // Type badge
+        ctx.font = '11px Sora, sans-serif';
+        ctx.fillStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},0.8)`;
+        ctx.fillText(z.tipo.toUpperCase(), z.x + z.w/2, z.y + 94);
+
+        // Selection indicator
+        if(isSel) {
+          ctx.fillStyle = z.color;
+          ctx.beginPath();
+          ctx.arc(z.x + z.w - 14, z.y + 14, 5, 0, Math.PI*2);
+          ctx.fill();
+        }
+      });
+
+      // Institute label
+      ctx.font = '600 11px Sora, sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,0.18)';
+      ctx.textAlign = 'left';
+      ctx.fillText('IES TECH — PARQUE TECNOLÓGICO', 16, H - 16);
+
+      requestAnimationFrame(drawMap);
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    function getZoneAt(mx, my) {
+      for(let i = zonas.length - 1; i >= 0; i--) {
+        const z = zonas[i];
+        if(mx >= z.x && mx <= z.x+z.w && my >= z.y && my <= z.y+z.h) return i;
+      }
+      return -1;
+    }
+
+    function getCanvasPos(e) {
+      const rect  = canvas.getBoundingClientRect();
+      const scaleX = canvas.width  / rect.width;
+      const scaleY = canvas.height / rect.height;
+      return {
+        x: (e.clientX - rect.left) * scaleX,
+        y: (e.clientY - rect.top)  * scaleY
+      };
+    }
+
+    canvas.addEventListener('mousemove', e => {
+      const {x, y} = getCanvasPos(e);
+      const idx = getZoneAt(x, y);
+      hovered = idx >= 0 ? idx : null;
+      canvas.style.cursor = hovered !== null ? 'pointer' : 'crosshair';
+    });
+
+    canvas.addEventListener('click', e => {
+      const {x, y} = getCanvasPos(e);
+      const idx = getZoneAt(x, y);
+      if(idx >= 0) {
+        selected = idx;
+        const z = zonas[idx];
+        // Update info panel
+        const icons = {huerto:'🌱', meteo:'🌤️', electricidad:'⚡', fontaneria:'🔧'};
+        document.getElementById('map-info').innerHTML = `
+          <div class="info-icon" style="background:rgba(${hexToRgb(z.color).r},${hexToRgb(z.color).g},${hexToRgb(z.color).b},0.15);">${icons[z.tipo]}</div>
+          <div class="info-text">
+            <h4 style="color:${z.color}">${z.nombre}</h4>
+            <p>${z.info}</p>
+          </div>`;
+        // Update stats
+        document.getElementById('stat-zona').textContent = z.nombre;
+        if(z.tipo === 'meteo') {
+          document.getElementById('stat-temp').textContent = '21.4 °C';
+          document.getElementById('stat-temp-sub').textContent = '↑ Normal';
+          document.getElementById('stat-hum').textContent = '62%';
+          document.getElementById('stat-hum-sub').textContent = '→ Óptima';
+        }
+      }
+    });
+
+    // Start render loop
+    requestAnimationFrame(drawMap);
   </script>
 </body>
 </html>
-</html>
-
 
