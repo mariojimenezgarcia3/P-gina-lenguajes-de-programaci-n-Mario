@@ -767,8 +767,32 @@ Selecciona una zona: <span style="color:#f0c040">3</span>
           </div>
         </div>
 
-      </div>
-    </div><!-- /desarrollo -->
+      <!-- ══════════════════════════════════════════ -->
+      <!--   PLANO DISTRIBUCIÓN ZONAS                 -->
+      <!-- ══════════════════════════════════════════ -->
+      <div style="margin-top: 36px; padding-bottom: 64px;">
+
+        <!-- Canvas del plano -->
+        <div class="map-container">
+          <div class="map-toolbar">
+            <span class="map-toolbar-title">📐 Plano de Distribución — Parque Tecnológico (33 m × 6 m)</span>
+            <div class="map-legend">
+              <span class="legend-item"><span class="legend-dot" style="background:#4caf6e;"></span>Huertos</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#4b9fff;"></span>Est. Meteorológica</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#f0a040;"></span>Electricidad & Fontanería</span>
+            </div>
+          </div>
+          <canvas id="cine-canvas" width="1100" height="620" style="width:100%;height:auto;display:block;cursor:pointer;"></canvas>
+          <div class="map-info-panel" id="plan-info">
+            <div class="info-icon" style="background:var(--surface2);">🏗️</div>
+            <div class="info-text">
+              <h4>Plano de distribución interior — 33 m × 6 m</h4>
+              <p>Disposición: Huerto A · Estación Meteorológica · Huerto B · Zona Electricidad · Zona Fontanería. Haz clic en una zona para ver sus detalles.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /plano distribución -->
 
   </div><!-- /tabs-wrapper -->
 
@@ -994,7 +1018,7 @@ Selecciona una zona: <span style="color:#f0c040">3</span>
         selected = idx;
         const z = zonas[idx];
         // Update info panel
-        const icons = {huerto:'🌱', meteo:'🌤️', electricidad:'⚡', fontaneria:'🔧'};
+        const icons = {huerto:'🌱', meteo:'🌤️', taller:'⚡🔧'};
         document.getElementById('map-info').innerHTML = `
           <div class="info-icon" style="background:rgba(${hexToRgb(z.color).r},${hexToRgb(z.color).g},${hexToRgb(z.color).b},0.15);">${icons[z.tipo]}</div>
           <div class="info-text">
@@ -1014,7 +1038,241 @@ Selecciona una zona: <span style="color:#f0c040">3</span>
 
     // Start render loop
     requestAnimationFrame(drawMap);
+
+    /* ═══════════════ PLAN — ZONE DISTRIBUTION ═══════════════ */
+    (function drawPlan() {
+      const cv = document.getElementById('cine-canvas');
+      if (!cv) return;
+      const c  = cv.getContext('2d');
+      const W  = cv.width;   // 1100
+      const H  = cv.height;  // 620
+
+      // The building is 33 m tall × 6 m wide (portrait orientation)
+      // We render it HORIZONTALLY on screen: width = long axis (33 m), height = short axis (6 m)
+      const REAL_LONG = 33; // m — horizontal on canvas
+      const REAL_SHORT = 6; // m — vertical on canvas
+
+      const PAD_L = 80, PAD_R = 80, PAD_T = 70, PAD_B = 90;
+      const drawW = W - PAD_L - PAD_R;
+      const drawH = H - PAD_T - PAD_B;
+
+      const scaleX = drawW / REAL_LONG;
+      const scaleY = drawH / REAL_SHORT;
+
+      // Building rect origin
+      const bx = PAD_L;
+      const by = PAD_T;
+      const bw = drawW;
+      const bh = drawH;
+
+      // ── Zones (in real metres from left edge, along the 33 m axis) ──
+      // Order: Huerto A | Est. Meteo | Huerto B | Electricidad & Fontanería (misma zona)
+      // Huerto A: 8 m, Meteo: 6 m, Huerto B: 8 m, Elec+Font: 11 m → total 33 m
+      const zonasDef = [
+        { nombre: 'Huerto A',                    tipo: 'huerto',       emoji: '🌱', color: '#4caf6e', colorA: 'rgba(76,175,110,0.22)',  start: 0,  len: 8,
+          info: 'Cultivos: tomates, lechugas, pimientos · 48 m² · Grupo 1º Bach A' },
+        { nombre: 'Estación Meteorológica',      tipo: 'meteo',        emoji: '🌤️', color: '#4b9fff', colorA: 'rgba(75,159,255,0.22)',  start: 8,  len: 6,
+          info: 'Temp: 21.4 °C · Humedad: 62% · Viento: 14 km/h · Presión: 1013 hPa' },
+        { nombre: 'Huerto B',                    tipo: 'huerto',       emoji: '🌿', color: '#66bb6a', colorA: 'rgba(102,187,106,0.22)', start: 14, len: 8,
+          info: 'Cultivos: zanahorias, espinacas · 48 m² · Grupo 1º Bach B' },
+        { nombre: 'Electricidad & Fontanería',   tipo: 'taller',       emoji: '⚡🔧', color: '#f0a040', colorA: 'rgba(240,160,64,0.22)',  start: 22, len: 11,
+          info: 'Prácticas: circuitos, inst. doméstica, energía solar · tuberías PVC, soldadura, grifería · 28 alumnos' },
+      ];
+
+      // Convert real coords → canvas coords
+      function rx(m) { return bx + m * scaleX; }
+      function ry2(m) { return by + m * scaleY; }
+      function rw(m) { return m * scaleX; }
+      function rh(m) { return m * scaleY; }
+
+      // Hit zones for click
+      const hitZones = zonasDef.map(z => ({
+        ...z,
+        cx: rx(z.start), cy: by,
+        cw: rw(z.len),   ch: bh
+      }));
+
+      // ── RENDER ──
+      function render(hovIdx) {
+        c.clearRect(0, 0, W, H);
+
+        // Background + grid
+        c.fillStyle = '#12121a';
+        c.fillRect(0, 0, W, H);
+        c.strokeStyle = 'rgba(255,255,255,0.035)';
+        c.lineWidth = 1;
+        for (let x = 0; x < W; x += 30) { c.beginPath(); c.moveTo(x,0); c.lineTo(x,H); c.stroke(); }
+        for (let y = 0; y < H; y += 30) { c.beginPath(); c.moveTo(0,y); c.lineTo(W,y); c.stroke(); }
+
+        // Building outer wall (faint)
+        c.fillStyle = 'rgba(255,255,255,0.02)';
+        c.fillRect(bx, by, bw, bh);
+
+        // ── Draw each zone ──
+        zonasDef.forEach((z, i) => {
+          const zx = rx(z.start);
+          const zw = rw(z.len);
+          const isHov = hovIdx === i;
+
+          // Fill
+          const grd = c.createLinearGradient(zx, by, zx + zw, by + bh);
+          grd.addColorStop(0, isHov ? z.colorA.replace('0.22','0.38') : z.colorA);
+          grd.addColorStop(1, isHov ? z.colorA.replace('0.22','0.12') : 'rgba(0,0,0,0.05)');
+          c.fillStyle = grd;
+          c.fillRect(zx, by, zw, bh);
+
+          // Border between zones (thin divider)
+          if (i > 0) {
+            c.strokeStyle = 'rgba(255,255,255,0.12)';
+            c.lineWidth = 1.5;
+            c.setLineDash([6, 4]);
+            c.beginPath(); c.moveTo(zx, by); c.lineTo(zx, by + bh); c.stroke();
+            c.setLineDash([]);
+          }
+
+          // Zone glow on hover
+          if (isHov) {
+            c.shadowColor = z.color;
+            c.shadowBlur  = 18;
+          }
+
+          // Zone border (coloured top & bottom stripe)
+          c.strokeStyle = z.color;
+          c.lineWidth = isHov ? 3 : 1.8;
+          c.strokeRect(zx + 1, by + 1, zw - 2, bh - 2);
+          c.shadowBlur = 0;
+
+          // Emoji
+          c.font = '26px serif';
+          c.textAlign = 'center';
+          c.fillStyle = '#fff';
+          c.fillText(z.emoji, zx + zw / 2, by + bh * 0.35);
+
+          // Zone name (wrapped if needed)
+          c.font = `${isHov ? '600' : '500'} 13px Sora, sans-serif`;
+          c.fillStyle = isHov ? z.color : '#c8c8d8';
+          c.textAlign = 'center';
+          const words = z.nombre.split(' ');
+          // Simple 2-line wrap
+          if (words.length <= 2) {
+            c.fillText(z.nombre, zx + zw / 2, by + bh * 0.55);
+          } else {
+            const half = Math.ceil(words.length / 2);
+            c.fillText(words.slice(0, half).join(' '), zx + zw / 2, by + bh * 0.52);
+            c.fillText(words.slice(half).join(' '),    zx + zw / 2, by + bh * 0.64);
+          }
+
+          // m² badge at bottom
+          const sup = (z.len * REAL_SHORT).toFixed(0);
+          c.font = '11px JetBrains Mono, monospace';
+          c.fillStyle = `rgba(${hexToRgbStr(z.color)},0.7)`;
+          c.fillText(`${sup} m²`, zx + zw / 2, by + bh * 0.82);
+
+          // Cota below: zone length in metres
+          const cotaY = by + bh + 28;
+          c.strokeStyle = `rgba(${hexToRgbStr(z.color)},0.6)`;
+          c.lineWidth = 1.2;
+          c.beginPath(); c.moveTo(zx + 2, cotaY); c.lineTo(zx + zw - 2, cotaY); c.stroke();
+          c.beginPath(); c.moveTo(zx + 2, cotaY - 6); c.lineTo(zx + 2, cotaY + 6); c.stroke();
+          c.beginPath(); c.moveTo(zx + zw - 2, cotaY - 6); c.lineTo(zx + zw - 2, cotaY + 6); c.stroke();
+          c.font = '600 11px Sora, sans-serif';
+          c.fillStyle = `rgba(${hexToRgbStr(z.color)},0.85)`;
+          c.textAlign = 'center';
+          c.fillText(`${z.len} m`, zx + zw / 2, cotaY + 16);
+        });
+
+        // ── Outer building wall (thick border) ──
+        c.strokeStyle = 'rgba(255,255,255,0.35)';
+        c.lineWidth = 3;
+        c.shadowColor = 'rgba(255,255,255,0.15)';
+        c.shadowBlur = 8;
+        c.strokeRect(bx, by, bw, bh);
+        c.shadowBlur = 0;
+
+        // Corner marks
+        [[bx,by],[bx+bw,by],[bx+bw,by+bh],[bx,by+bh]].forEach(([px,py]) => {
+          c.beginPath(); c.arc(px, py, 4, 0, Math.PI*2);
+          c.fillStyle = 'rgba(255,255,255,0.5)';
+          c.fill();
+        });
+
+        // ── Left cota: 6 m (height of building) ──
+        const lcX = bx - 44;
+        c.strokeStyle = 'rgba(255,255,255,0.25)';
+        c.lineWidth = 1.2;
+        c.setLineDash([4,4]);
+        c.beginPath(); c.moveTo(bx, by); c.lineTo(lcX + 8, by); c.stroke();
+        c.beginPath(); c.moveTo(bx, by+bh); c.lineTo(lcX + 8, by+bh); c.stroke();
+        c.setLineDash([]);
+        c.beginPath(); c.moveTo(lcX, by); c.lineTo(lcX, by+bh); c.stroke();
+        c.beginPath(); c.moveTo(lcX-6,by); c.lineTo(lcX+6,by); c.stroke();
+        c.beginPath(); c.moveTo(lcX-6,by+bh); c.lineTo(lcX+6,by+bh); c.stroke();
+        c.save();
+        c.translate(lcX - 18, by + bh/2);
+        c.rotate(-Math.PI/2);
+        c.font = '600 12px Sora, sans-serif';
+        c.fillStyle = 'rgba(255,255,255,0.45)';
+        c.textAlign = 'center';
+        c.fillText('6 m', 0, 0);
+        c.restore();
+
+        // ── Bottom total cota: 33 m ──
+        const bcY = by + bh + 58;
+        c.strokeStyle = 'rgba(255,255,255,0.25)';
+        c.lineWidth = 1.2;
+        c.beginPath(); c.moveTo(bx, bcY); c.lineTo(bx+bw, bcY); c.stroke();
+        c.beginPath(); c.moveTo(bx, bcY-6); c.lineTo(bx, bcY+6); c.stroke();
+        c.beginPath(); c.moveTo(bx+bw, bcY-6); c.lineTo(bx+bw, bcY+6); c.stroke();
+        c.font = '600 12px Sora, sans-serif';
+        c.fillStyle = 'rgba(255,255,255,0.45)';
+        c.textAlign = 'center';
+        c.fillText('33 m', bx + bw/2, bcY + 16);
+
+        // ── Scale note bottom-left ──
+        c.font = '10px JetBrains Mono, monospace';
+        c.fillStyle = 'rgba(255,255,255,0.18)';
+        c.textAlign = 'left';
+        c.fillText('Escala referencial · Vista superior · 33 m × 6 m', bx, H - 8);
+      }
+
+      function hexToRgbStr(hex) {
+        const r = parseInt(hex.slice(1,3),16);
+        const g = parseInt(hex.slice(3,5),16);
+        const b = parseInt(hex.slice(5,7),16);
+        return `${r},${g},${b}`;
+      }
+
+      // Initial render
+      render(-1);
+
+      // ── Hover ──
+      cv.addEventListener('mousemove', e => {
+        const rect = cv.getBoundingClientRect();
+        const mx = (e.clientX - rect.left) * (W / rect.width);
+        const my = (e.clientY - rect.top)  * (H / rect.height);
+        const idx = hitZones.findIndex(z => mx >= z.cx && mx <= z.cx+z.cw && my >= z.cy && my <= z.cy+z.ch);
+        cv.style.cursor = idx >= 0 ? 'pointer' : 'default';
+        render(idx);
+      });
+      cv.addEventListener('mouseleave', () => { render(-1); cv.style.cursor = 'default'; });
+
+      // ── Click ──
+      cv.addEventListener('click', e => {
+        const rect = cv.getBoundingClientRect();
+        const mx = (e.clientX - rect.left) * (W / rect.width);
+        const my = (e.clientY - rect.top)  * (H / rect.height);
+        const idx = hitZones.findIndex(z => mx >= z.cx && mx <= z.cx+z.cw && my >= z.cy && my <= z.cy+z.ch);
+        if (idx < 0) return;
+        const z = zonasDef[idx];
+        const icons = {huerto:'🌱', meteo:'🌤️', taller:'⚡🔧'};
+        document.getElementById('plan-info').innerHTML = `
+          <div class="info-icon" style="background:rgba(${hexToRgbStr(z.color)},0.15);">${icons[z.tipo]}</div>
+          <div class="info-text">
+            <h4 style="color:${z.color}">${z.nombre}</h4>
+            <p>${z.info} · Longitud: ${z.len} m · Superficie: ${(z.len * 6).toFixed(0)} m²</p>
+          </div>`;
+      });
+    })();
   </script>
 </body>
 </html>
-
