@@ -368,6 +368,69 @@
       header, .tabs-wrapper { padding-left: 20px; padding-right: 20px; }
       #park-map { height: 300px; }
     }
+
+    /* ── PYTHON ESPECIALIZADO ── */
+    .py-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--py-accent);
+      margin: 28px 0 14px;
+      padding-left: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .py-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(75,159,255,0.2);
+    }
+    .py-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 8px;
+    }
+    .py-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .py-card:hover { border-color: rgba(75,159,255,0.35); transform: translateY(-2px); }
+    .py-card-header {
+      padding: 16px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .py-level-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .level-basic    { background: #4caf6e; }
+    .level-mid      { background: #f0c040; }
+    .level-advanced { background: #ff6b6b; }
+    .py-card-title  { font-size: 15px; font-weight: 600; color: var(--text); }
+    .py-card-tag    { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .py-card-body   { padding: 16px 20px 20px; }
+    .py-explain {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      background: var(--surface2);
+      border-left: 3px solid var(--py-accent);
+      border-radius: 0 8px 8px 0;
+    }
+    .py-explain strong { color: var(--text); }
   </style>
 </head>
 <body>
@@ -380,6 +443,7 @@
   <div class="tabs-wrapper">
     <nav class="tab-nav">
       <button class="tab-btn active" onclick="showTab('lenguajes', this)">Lenguajes de programación</button>
+      <button class="tab-btn" onclick="showTab('python', this)">Python especializado</button>
       <button class="tab-btn" onclick="showTab('desarrollo', this)">Desarrollo de programas</button>
     </nav>
 
@@ -575,6 +639,607 @@
       </div>
 
     </div><!-- /lenguajes -->
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!--   TAB PYTHON ESPECIALIZADO                          -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div id="python" class="tab-content">
+
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="showSubTab('py-basico', this)">Básico</button>
+        <button class="sub-btn" onclick="showSubTab('py-intermedio', this)">Intermedio</button>
+        <button class="sub-btn" onclick="showSubTab('py-avanzado', this)">Avanzado</button>
+      </div>
+
+      <!-- ── BÁSICO ── -->
+      <div id="py-basico" class="sub-content active">
+
+        <p class="py-section-title">📘 Nivel Básico — Fundamentos</p>
+        <div class="py-grid">
+
+          <!-- Variables y tipos -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-basic"></div>
+              <div>
+                <div class="py-card-title">Variables y tipos de datos</div>
+                <div class="py-card-tag">str · int · float · bool</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Python asigna el tipo <strong>automáticamente</strong>. Puedes guardar texto, números enteros, decimales o valores verdadero/falso sin declarar el tipo.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line">nombre  = <span class="str">"Mario"</span>          <span class="cm"># str</span></span>
+<span class="line">edad    = <span class="num">17</span>               <span class="cm"># int</span></span>
+<span class="line">nota    = <span class="num">9.5</span>              <span class="cm"># float</span></span>
+<span class="line">aprobado = <span class="kw">True</span>           <span class="cm"># bool</span></span>
+<span class="line"></span>
+<span class="line"><span class="fn">print</span>(<span class="str">f"Hola {nombre}, nota: {nota}"</span>)</span>
+                </div>
+              </div>
+              <div class="output-box">Hola Mario, nota: 9.5</div>
+            </div>
+          </div>
+
+          <!-- Input del usuario -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-basic"></div>
+              <div>
+                <div class="py-card-title">Entrada del usuario</div>
+                <div class="py-card-tag">input() · int() · conversión de tipos</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain"><strong>input()</strong> siempre devuelve texto. Si necesitas operar con un número, conviértelo con <strong>int()</strong> o <strong>float()</strong>.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line">nombre = <span class="fn">input</span>(<span class="str">"¿Cómo te llamas? "</span>)</span>
+<span class="line">edad   = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"¿Cuántos años tienes? "</span>))</span>
+<span class="line"></span>
+<span class="line"><span class="fn">print</span>(<span class="str">f"Hola {nombre},"</span></span>
+<span class="line">      <span class="str">f"en 5 años tendrás {edad + 5}."</span>)</span>
+                </div>
+              </div>
+              <div class="output-box">Hola Mario, en 5 años tendrás 22.</div>
+            </div>
+          </div>
+
+          <!-- Condicionales -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-basic"></div>
+              <div>
+                <div class="py-card-title">Condicionales if / elif / else</div>
+                <div class="py-card-tag">control de flujo · comparaciones</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Los condicionales permiten que el programa tome <strong>decisiones</strong>. Python usa la <strong>indentación</strong> (espacios) para delimitar los bloques, sin llaves.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line">nota = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Introduce tu nota: "</span>))</span>
+<span class="line"></span>
+<span class="line"><span class="kw">if</span> nota >= <span class="num">9</span>:</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"Sobresaliente 🏆"</span>)</span>
+<span class="line"><span class="kw">elif</span> nota >= <span class="num">7</span>:</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"Notable 👍"</span>)</span>
+<span class="line"><span class="kw">elif</span> nota >= <span class="num">5</span>:</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"Aprobado ✅"</span>)</span>
+<span class="line"><span class="kw">else</span>:</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"Suspenso ❌"</span>)</span>
+                </div>
+              </div>
+              <div class="output-box">Notable 👍</div>
+            </div>
+          </div>
+
+          <!-- Bucle for -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-basic"></div>
+              <div>
+                <div class="py-card-title">Bucle for y range()</div>
+                <div class="py-card-tag">iteración · range · listas</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain"><strong>for</strong> recorre elementos uno a uno. <strong>range(n)</strong> genera números del 0 al n-1. Muy útil para repetir acciones un número fijo de veces.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="cm"># Tabla de multiplicar del 3</span></span>
+<span class="line"><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">11</span>):</span>
+<span class="line">    resultado = <span class="num">3</span> * i</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">f"3 x {i} = {resultado}"</span>)</span>
+                </div>
+              </div>
+              <div class="output-box">3 x 1 = 3<br>3 x 2 = 6<br>3 x 3 = 9  ···</div>
+            </div>
+          </div>
+
+          <!-- Listas -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-basic"></div>
+              <div>
+                <div class="py-card-title">Listas</div>
+                <div class="py-card-tag">append · len · indexación</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Una <strong>lista</strong> es una colección ordenada y modificable. Se accede a sus elementos por índice (empezando en 0). Se pueden añadir, eliminar y buscar elementos.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line">notas = [<span class="num">8</span>, <span class="num">6.5</span>, <span class="num">9</span>, <span class="num">7</span>, <span class="num">5.5</span>]</span>
+<span class="line"></span>
+<span class="line"><span class="fn">print</span>(<span class="str">"Primera nota:"</span>, notas[<span class="num">0</span>])</span>
+<span class="line"><span class="fn">print</span>(<span class="str">"Total alumnos:"</span>, <span class="fn">len</span>(notas))</span>
+<span class="line"><span class="fn">print</span>(<span class="str">"Media:"</span>, <span class="fn">sum</span>(notas) / <span class="fn">len</span>(notas))</span>
+<span class="line"></span>
+<span class="line">notas.append(<span class="num">10</span>)  <span class="cm"># Añadir</span></span>
+<span class="line"><span class="fn">print</span>(<span class="str">"Con nueva nota:"</span>, notas)</span>
+                </div>
+              </div>
+              <div class="output-box">Primera nota: 8<br>Total alumnos: 5<br>Media: 7.2</div>
+            </div>
+          </div>
+
+          <!-- Funciones básicas -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-basic"></div>
+              <div>
+                <div class="py-card-title">Funciones</div>
+                <div class="py-card-tag">def · parámetros · return</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Las <strong>funciones</strong> agrupan código reutilizable. Se definen con <strong>def</strong>, reciben parámetros y pueden devolver un resultado con <strong>return</strong>.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="kw">def</span> <span class="fn">calcular_imc</span>(peso, altura):</span>
+<span class="line">    imc = peso / (altura ** <span class="num">2</span>)</span>
+<span class="line">    <span class="kw">return</span> <span class="fn">round</span>(imc, <span class="num">2</span>)</span>
+<span class="line"></span>
+<span class="line">resultado = <span class="fn">calcular_imc</span>(<span class="num">70</span>, <span class="num">1.75</span>)</span>
+<span class="line"><span class="fn">print</span>(<span class="str">f"Tu IMC es: {resultado}"</span>)</span>
+                </div>
+              </div>
+              <div class="output-box">Tu IMC es: 22.86</div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /py-basico -->
+
+      <!-- ── INTERMEDIO ── -->
+      <div id="py-intermedio" class="sub-content">
+
+        <p class="py-section-title">📗 Nivel Intermedio — Estructuras y módulos</p>
+        <div class="py-grid">
+
+          <!-- Diccionarios -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-mid"></div>
+              <div>
+                <div class="py-card-title">Diccionarios</div>
+                <div class="py-card-tag">clave–valor · .get() · .items()</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Un <strong>diccionario</strong> almacena pares clave–valor. Es ideal para representar objetos del mundo real (un alumno, un producto, una configuración) de forma legible.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line">alumno = {</span>
+<span class="line">    <span class="str">"nombre"</span>: <span class="str">"Mario"</span>,</span>
+<span class="line">    <span class="str">"curso"</span>: <span class="str">"1º Bachillerato"</span>,</span>
+<span class="line">    <span class="str">"notas"</span>: [<span class="num">8</span>, <span class="num">9</span>, <span class="num">7.5</span>]</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"><span class="kw">for</span> clave, valor <span class="kw">in</span> alumno.items():</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">f"{clave}: {valor}"</span>)</span>
+<span class="line"></span>
+<span class="line">media = <span class="fn">sum</span>(alumno[<span class="str">"notas"</span>]) / <span class="fn">len</span>(alumno[<span class="str">"notas"</span>])</span>
+<span class="line"><span class="fn">print</span>(<span class="str">f"Media: {media:.2f}"</span>)</span>
+                </div>
+              </div>
+              <div class="output-box">nombre: Mario<br>curso: 1º Bachillerato<br>Media: 8.17</div>
+            </div>
+          </div>
+
+          <!-- List comprehension -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-mid"></div>
+              <div>
+                <div class="py-card-title">List Comprehension</div>
+                <div class="py-card-tag">listas en una línea · filtros</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">La <strong>comprensión de listas</strong> crea listas nuevas en una sola línea. Es más rápida y legible que un bucle for tradicional para transformar o filtrar datos.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line">notas = [<span class="num">4</span>, <span class="num">7</span>, <span class="num">3</span>, <span class="num">9</span>, <span class="num">5</span>, <span class="num">8</span>, <span class="num">2</span>]</span>
+<span class="line"></span>
+<span class="line"><span class="cm"># Solo notas aprobadas</span></span>
+<span class="line">aprobadas = [n <span class="kw">for</span> n <span class="kw">in</span> notas <span class="kw">if</span> n >= <span class="num">5</span>]</span>
+<span class="line"></span>
+<span class="line"><span class="cm"># Notas al cuadrado</span></span>
+<span class="line">cuadrados = [n**<span class="num">2</span> <span class="kw">for</span> n <span class="kw">in</span> notas]</span>
+<span class="line"></span>
+<span class="line"><span class="fn">print</span>(<span class="str">"Aprobadas:"</span>, aprobadas)</span>
+<span class="line"><span class="fn">print</span>(<span class="str">"Cuadrados:"</span>, cuadrados)</span>
+                </div>
+              </div>
+              <div class="output-box">Aprobadas: [7, 9, 5, 8]<br>Cuadrados: [16, 49, 9, 81, 25, 64, 4]</div>
+            </div>
+          </div>
+
+          <!-- Manejo de ficheros -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-mid"></div>
+              <div>
+                <div class="py-card-title">Lectura y escritura de ficheros</div>
+                <div class="py-card-tag">open() · with · read · write</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Con <strong>open()</strong> y el bloque <strong>with</strong> puedes leer y escribir archivos de forma segura. El fichero se cierra automáticamente al salir del bloque.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="cm"># Escribir en un fichero</span></span>
+<span class="line"><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"notas.txt"</span>, <span class="str">"w"</span>) <span class="kw">as</span> f:</span>
+<span class="line">    f.write(<span class="str">"Mario: 9\nLaura: 8\nPedro: 7\n"</span>)</span>
+<span class="line"></span>
+<span class="line"><span class="cm"># Leer el fichero</span></span>
+<span class="line"><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"notas.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> f:</span>
+<span class="line">    contenido = f.read()</span>
+<span class="line"></span>
+<span class="line"><span class="fn">print</span>(contenido)</span>
+                </div>
+              </div>
+              <div class="output-box">Mario: 9<br>Laura: 8<br>Pedro: 7</div>
+            </div>
+          </div>
+
+          <!-- Manejo de errores -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-mid"></div>
+              <div>
+                <div class="py-card-title">Manejo de excepciones</div>
+                <div class="py-card-tag">try · except · finally</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain"><strong>try/except</strong> captura errores en tiempo de ejecución para que el programa no se rompa. Siempre gestiona los errores que el usuario puede provocar (divisiones, entradas incorrectas…).</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="kw">try</span>:</span>
+<span class="line">    num = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Introduce un número: "</span>))</span>
+<span class="line">    resultado = <span class="num">100</span> / num</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">f"100 / {num} = {resultado}"</span>)</span>
+<span class="line"><span class="kw">except</span> <span class="fn">ValueError</span>:</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"❌ Eso no es un número entero."</span>)</span>
+<span class="line"><span class="kw">except</span> <span class="fn">ZeroDivisionError</span>:</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"❌ No se puede dividir entre 0."</span>)</span>
+<span class="line"><span class="kw">finally</span>:</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">"Programa finalizado."</span>)</span>
+                </div>
+              </div>
+              <div class="output-box">100 / 4 = 25.0<br>Programa finalizado.</div>
+            </div>
+          </div>
+
+          <!-- Módulo random -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-mid"></div>
+              <div>
+                <div class="py-card-title">Módulo random</div>
+                <div class="py-card-tag">import · randint · choice · shuffle</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">El módulo <strong>random</strong> genera valores aleatorios. Útil para juegos, sorteos, simulaciones y pruebas. Se importa con <strong>import random</strong>.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="kw">import</span> random</span>
+<span class="line"></span>
+<span class="line"><span class="cm"># Número entre 1 y 100</span></span>
+<span class="line">secreto = random.randint(<span class="num">1</span>, <span class="num">100</span>)</span>
+<span class="line"></span>
+<span class="line"><span class="cm"># Elegir un ganador</span></span>
+<span class="line">participantes = [<span class="str">"Mario"</span>, <span class="str">"Laura"</span>, <span class="str">"Pedro"</span>]</span>
+<span class="line">ganador = random.choice(participantes)</span>
+<span class="line"><span class="fn">print</span>(<span class="str">f"🎉 Ganador: {ganador}"</span>)</span>
+<span class="line"></span>
+<span class="line"><span class="cm"># Barajar una lista</span></span>
+<span class="line">random.shuffle(participantes)</span>
+<span class="line"><span class="fn">print</span>(<span class="str">"Orden aleatorio:"</span>, participantes)</span>
+                </div>
+              </div>
+              <div class="output-box">🎉 Ganador: Laura<br>Orden aleatorio: ['Pedro', 'Mario', 'Laura']</div>
+            </div>
+          </div>
+
+          <!-- Clases y OOP -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-mid"></div>
+              <div>
+                <div class="py-card-title">Clases y objetos (POO)</div>
+                <div class="py-card-tag">class · __init__ · self · métodos</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">La <strong>Programación Orientada a Objetos</strong> modela el mundo en clases. Cada clase es un molde; cada objeto es una instancia concreta con sus propios datos.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="kw">class</span> <span class="fn">Alumno</span>:</span>
+<span class="line">    <span class="kw">def</span> <span class="fn">__init__</span>(self, nombre, nota):</span>
+<span class="line">        self.nombre = nombre</span>
+<span class="line">        self.nota   = nota</span>
+<span class="line"></span>
+<span class="line">    <span class="kw">def</span> <span class="fn">estado</span>(self):</span>
+<span class="line">        estado = <span class="str">"Aprobado"</span> <span class="kw">if</span> self.nota >= <span class="num">5</span> <span class="kw">else</span> <span class="str">"Suspenso"</span></span>
+<span class="line">        <span class="kw">return</span> <span class="str">f"{self.nombre}: {estado}"</span></span>
+<span class="line"></span>
+<span class="line">a1 = <span class="fn">Alumno</span>(<span class="str">"Mario"</span>, <span class="num">8</span>)</span>
+<span class="line">a2 = <span class="fn">Alumno</span>(<span class="str">"Pedro"</span>, <span class="num">4</span>)</span>
+<span class="line"><span class="fn">print</span>(a1.<span class="fn">estado</span>())</span>
+<span class="line"><span class="fn">print</span>(a2.<span class="fn">estado</span>())</span>
+                </div>
+              </div>
+              <div class="output-box">Mario: Aprobado<br>Pedro: Suspenso</div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /py-intermedio -->
+
+      <!-- ── AVANZADO ── -->
+      <div id="py-avanzado" class="sub-content">
+
+        <p class="py-section-title">📕 Nivel Avanzado — Técnicas profesionales</p>
+        <div class="py-grid">
+
+          <!-- Decoradores -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-advanced"></div>
+              <div>
+                <div class="py-card-title">Decoradores</div>
+                <div class="py-card-tag">@decorator · wrapper · functools</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Un <strong>decorador</strong> envuelve una función para añadirle comportamiento extra sin modificar su código. Se usan mucho en frameworks web para autenticación, logs o cronometrado.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="kw">import</span> time</span>
+<span class="line"></span>
+<span class="line"><span class="kw">def</span> <span class="fn">cronometrar</span>(func):</span>
+<span class="line">    <span class="kw">def</span> <span class="fn">wrapper</span>(*args, **kwargs):</span>
+<span class="line">        inicio = time.<span class="fn">time</span>()</span>
+<span class="line">        resultado = <span class="fn">func</span>(*args, **kwargs)</span>
+<span class="line">        fin = time.<span class="fn">time</span>()</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"⏱ {func.__name__}: {fin-inicio:.4f}s"</span>)</span>
+<span class="line">        <span class="kw">return</span> resultado</span>
+<span class="line">    <span class="kw">return</span> wrapper</span>
+<span class="line"></span>
+<span class="line"><span class="kw">@</span><span class="fn">cronometrar</span></span>
+<span class="line"><span class="kw">def</span> <span class="fn">suma_grande</span>():</span>
+<span class="line">    <span class="kw">return</span> <span class="fn">sum</span>(<span class="fn">range</span>(<span class="num">1_000_000</span>))</span>
+<span class="line"></span>
+<span class="line"><span class="fn">suma_grande</span>()</span>
+                </div>
+              </div>
+              <div class="output-box">⏱ suma_grande: 0.0412s</div>
+            </div>
+          </div>
+
+          <!-- Generadores -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-advanced"></div>
+              <div>
+                <div class="py-card-title">Generadores</div>
+                <div class="py-card-tag">yield · lazy evaluation · memoria eficiente</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Los <strong>generadores</strong> producen valores uno a uno con <strong>yield</strong>, sin cargar todos en memoria. Ideales para procesar ficheros grandes o secuencias infinitas.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="kw">def</span> <span class="fn">fibonacci</span>(limite):</span>
+<span class="line">    a, b = <span class="num">0</span>, <span class="num">1</span></span>
+<span class="line">    <span class="kw">while</span> a &lt;= limite:</span>
+<span class="line">        <span class="kw">yield</span> a</span>
+<span class="line">        a, b = b, a + b</span>
+<span class="line"></span>
+<span class="line"><span class="cm"># Sólo calcula cuando se pide</span></span>
+<span class="line"><span class="kw">for</span> n <span class="kw">in</span> <span class="fn">fibonacci</span>(<span class="num">100</span>):</span>
+<span class="line">    <span class="fn">print</span>(n, end=<span class="str">" "</span>)</span>
+                </div>
+              </div>
+              <div class="output-box">0 1 1 2 3 5 8 13 21 34 55 89</div>
+            </div>
+          </div>
+
+          <!-- Context managers -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-advanced"></div>
+              <div>
+                <div class="py-card-title">Context Managers propios</div>
+                <div class="py-card-tag">__enter__ · __exit__ · with</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Un <strong>context manager</strong> garantiza que ciertos recursos se inicialicen y limpien correctamente. Es el mecanismo detrás del <strong>with open()</strong> que ya conoces.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="kw">class</span> <span class="fn">Temporizador</span>:</span>
+<span class="line">    <span class="kw">import</span> time</span>
+<span class="line">    <span class="kw">def</span> <span class="fn">__enter__</span>(self):</span>
+<span class="line">        <span class="kw">import</span> time</span>
+<span class="line">        self.inicio = time.<span class="fn">time</span>()</span>
+<span class="line">        <span class="kw">return</span> self</span>
+<span class="line">    <span class="kw">def</span> <span class="fn">__exit__</span>(self, *args):</span>
+<span class="line">        <span class="kw">import</span> time</span>
+<span class="line">        elapsed = time.<span class="fn">time</span>() - self.inicio</span>
+<span class="line">        <span class="fn">print</span>(<span class="str">f"Tiempo: {elapsed:.3f}s"</span>)</span>
+<span class="line"></span>
+<span class="line"><span class="kw">with</span> <span class="fn">Temporizador</span>():</span>
+<span class="line">    total = <span class="fn">sum</span>(<span class="fn">range</span>(<span class="num">500_000</span>))</span>
+                </div>
+              </div>
+              <div class="output-box">Tiempo: 0.021s</div>
+            </div>
+          </div>
+
+          <!-- Lambda y map/filter -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-advanced"></div>
+              <div>
+                <div class="py-card-title">Lambda, map y filter</div>
+                <div class="py-card-tag">funciones anónimas · programación funcional</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain"><strong>lambda</strong> crea funciones anónimas de una línea. <strong>map()</strong> las aplica a cada elemento de una lista; <strong>filter()</strong> selecciona los que cumplen una condición.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line">precios = [<span class="num">10.0</span>, <span class="num">25.5</span>, <span class="num">8.9</span>, <span class="num">45.0</span>, <span class="num">3.2</span>]</span>
+<span class="line"></span>
+<span class="line"><span class="cm"># Aplicar 21% IVA a todos</span></span>
+<span class="line">con_iva = <span class="fn">list</span>(<span class="fn">map</span>(<span class="kw">lambda</span> p: <span class="fn">round</span>(p * <span class="num">1.21</span>, <span class="num">2</span>), precios))</span>
+<span class="line"></span>
+<span class="line"><span class="cm"># Solo los que superan 15€</span></span>
+<span class="line">caros = <span class="fn">list</span>(<span class="fn">filter</span>(<span class="kw">lambda</span> p: p > <span class="num">15</span>, con_iva))</span>
+<span class="line"></span>
+<span class="line"><span class="fn">print</span>(<span class="str">"Con IVA:"</span>, con_iva)</span>
+<span class="line"><span class="fn">print</span>(<span class="str">"Caros:"</span>,   caros)</span>
+                </div>
+              </div>
+              <div class="output-box">Con IVA: [12.1, 30.86, 10.77, 54.45, 3.87]<br>Caros: [30.86, 54.45]</div>
+            </div>
+          </div>
+
+          <!-- Dataclasses -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-advanced"></div>
+              <div>
+                <div class="py-card-title">Dataclasses</div>
+                <div class="py-card-tag">@dataclass · tipado · __repr__ automático</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain">Las <strong>dataclasses</strong> generan automáticamente <strong>__init__</strong>, <strong>__repr__</strong> y más a partir de anotaciones de tipo. Menos código, más claridad.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="kw">from</span> dataclasses <span class="kw">import</span> dataclass</span>
+<span class="line"></span>
+<span class="line"><span class="kw">@</span><span class="fn">dataclass</span></span>
+<span class="line"><span class="kw">class</span> <span class="fn">Producto</span>:</span>
+<span class="line">    nombre: <span class="fn">str</span></span>
+<span class="line">    precio: <span class="fn">float</span></span>
+<span class="line">    stock: <span class="fn">int</span> = <span class="num">0</span></span>
+<span class="line"></span>
+<span class="line">    <span class="kw">def</span> <span class="fn">disponible</span>(self) -> <span class="fn">bool</span>:</span>
+<span class="line">        <span class="kw">return</span> self.stock > <span class="num">0</span></span>
+<span class="line"></span>
+<span class="line">p = <span class="fn">Producto</span>(<span class="str">"Teclado"</span>, <span class="num">29.99</span>, <span class="num">5</span>)</span>
+<span class="line"><span class="fn">print</span>(p)</span>
+<span class="line"><span class="fn">print</span>(<span class="str">"¿Disponible?"</span>, p.<span class="fn">disponible</span>())</span>
+                </div>
+              </div>
+              <div class="output-box">Producto(nombre='Teclado', precio=29.99, stock=5)<br>¿Disponible? True</div>
+            </div>
+          </div>
+
+          <!-- Async / Await -->
+          <div class="py-card">
+            <div class="py-card-header">
+              <div class="lang-badge py">Py</div>
+              <div class="py-level-dot level-advanced"></div>
+              <div>
+                <div class="py-card-title">Programación asíncrona</div>
+                <div class="py-card-tag">async · await · asyncio · concurrencia</div>
+              </div>
+            </div>
+            <div class="py-card-body">
+              <div class="py-explain"><strong>async/await</strong> permite ejecutar tareas concurrentes sin bloquear el programa. Esencial para aplicaciones web, peticiones a APIs o cualquier operación de entrada/salida.</div>
+              <div class="code-wrap">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <div class="code-block">
+<span class="line"><span class="kw">import</span> asyncio</span>
+<span class="line"></span>
+<span class="line"><span class="kw">async def</span> <span class="fn">descargar</span>(nombre, segundos):</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">f"⬇ Iniciando {nombre}..."</span>)</span>
+<span class="line">    <span class="kw">await</span> asyncio.<span class="fn">sleep</span>(segundos)</span>
+<span class="line">    <span class="fn">print</span>(<span class="str">f"✅ {nombre} completado"</span>)</span>
+<span class="line"></span>
+<span class="line"><span class="kw">async def</span> <span class="fn">main</span>():</span>
+<span class="line">    <span class="cm"># Las 3 descargas corren a la vez</span></span>
+<span class="line">    <span class="kw">await</span> asyncio.<span class="fn">gather</span>(</span>
+<span class="line">        <span class="fn">descargar</span>(<span class="str">"Imagen"</span>, <span class="num">2</span>),</span>
+<span class="line">        <span class="fn">descargar</span>(<span class="str">"Video"</span>,  <span class="num">3</span>),</span>
+<span class="line">        <span class="fn">descargar</span>(<span class="str">"Audio"</span>,  <span class="num">1</span>),</span>
+<span class="line">    )</span>
+<span class="line"></span>
+<span class="line">asyncio.<span class="fn">run</span>(<span class="fn">main</span>())</span>
+                </div>
+              </div>
+              <div class="output-box">⬇ Iniciando Imagen...<br>⬇ Iniciando Video...<br>⬇ Iniciando Audio...<br>✅ Audio completado<br>✅ Imagen completado<br>✅ Video completado</div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /py-avanzado -->
+
+    </div><!-- /python -->
 
     <!-- ═══════════════════════════════════════════════════ -->
     <!--   TAB 2 · DESARROLLO DE PROGRAMAS                  -->
@@ -806,8 +1471,10 @@ Selecciona una zona: <span style="color:#f0c040">3</span>
     }
 
     function showSubTab(id, btn) {
-      document.querySelectorAll('.sub-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.sub-btn').forEach(el => el.classList.remove('active'));
+      // Only hide/show sub-contents within the same parent tab
+      const parentTab = btn.closest('.tab-content');
+      parentTab.querySelectorAll('.sub-content').forEach(el => el.classList.remove('active'));
+      parentTab.querySelectorAll('.sub-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(id).classList.add('active');
       btn.classList.add('active');
     }
